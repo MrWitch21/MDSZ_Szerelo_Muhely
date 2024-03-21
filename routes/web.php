@@ -14,19 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->middleware(['auth', 'verified'])->name('/');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/create', function () {
+    return view('create');
+})->middleware(['auth', 'verified'])->name('create');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/active', function () {
+    return view('active');
+})->middleware(['auth', 'verified'])->name('active');
+
+Route::get('/closed', function () {
+    return view('closed');
+})->middleware(['auth', 'verified'])->name('closed');
+
+Route::get('/warehouse', function () {
+    return view('warehouse');
+})->middleware(['auth', 'verified'])->name('warehouse');
+
+Route::get('/service', function () {
+    return view('service');
+})->middleware(['auth', 'verified'])->name('service');
 
 Route::group(['middleware' => ['auth', 'mechanic']], function () {
 });
