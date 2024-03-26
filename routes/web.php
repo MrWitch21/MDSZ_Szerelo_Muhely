@@ -44,12 +44,5 @@ Route::group(['middleware' => ['auth', 'mechanic']], function () {
 Route::group(['middleware' => ['auth', 'receptionist']], function () {
 });
 
-// admin middleware-hez tartozó útvonalaink
-Route::group(['middleware' => ['auth', 'admin']], function () {
-    // 1. admin útvonal regisztrációja
-    // 2. admin útvonal regisztrációja
-    // ...
-    // utolsó admin útvonal regisztrációja
-});
 
 require __DIR__ . '/auth.php';

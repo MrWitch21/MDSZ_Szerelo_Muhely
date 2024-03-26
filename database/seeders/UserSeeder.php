@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Jani',
             'email' => 'receptionist@example.com',
             'password' => bcrypt('password'),
-            'username' => 'rec',
+            'usercode' => 'ABC123',
             'role' => 'receptionist',
         ]);
 
@@ -27,18 +27,8 @@ class UserSeeder extends Seeder
             'name' => 'Pista',
             'email' => 'mechanic@example.com',
             'password' => bcrypt('password'),
-            'username' => 'mech',
+            'usercode' => 'ABC124',
             'role' => 'mechanic',
         ]);
-
-        // Admin user
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-            'username' => 'admin',
-            'role' => 'admin',
-        ]);
-
     }
 }

@@ -19,11 +19,9 @@ class ReceptionistAuthenticated
             /** @var User $user */
             $user = auth()->user();
 
-            if ($user->hasRole('admin')) {
-                return redirect(route('admin_dashboard'));
-            } else if ($user->hasRole('mechanic')) {
+            if ($user->hasRole('mechanic')) {
                 return redirect(route('mechanic_dashboard'));
-            }else if ($user->hasRole('receptionist')) {
+            } else if ($user->hasRole('receptionist')) {
                 return $next($request);
             }
         }

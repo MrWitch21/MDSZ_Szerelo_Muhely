@@ -19,12 +19,12 @@
         </div>
 
         <div>
-            <x-input-label for="username" :value="__('Username')" />
+            <x-input-label for="usercode" :value="__('Usercode')" />
 
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
+            <x-text-input id="usercode" class="block mt-1 w-full" type="text" name="usercode" :value="old('usercode')"
                 required autofocus />
 
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            <x-input-error :messages="$errors->get('usercode')" class="mt-2" />
         </div>
 
         <!-- Password -->

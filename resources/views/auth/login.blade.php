@@ -5,19 +5,19 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Username -->
+        <!-- Usercode -->
         <div>
-            <x-input-label for="username" :value="__('Username')" />
+            <x-input-label for="usercode" :value="__('MDSZ kód')" />
 
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required
+            <x-text-input id="usercode" class="block mt-1 w-full" type="text" name="usercode" :value="old('usercode')" required
                 autofocus />
 
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            <x-input-error :messages="$errors->get('usercode')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Jelszó')" />
 
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                 autocomplete="current-password" />
@@ -31,20 +31,14 @@
                 <input id="remember_me" type="checkbox"
                     class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                     name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Emlékezz rám') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                    href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
 
             <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+                {{ __('Belépés') }}
             </x-primary-button>
         </div>
     </form>
