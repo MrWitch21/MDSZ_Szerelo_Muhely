@@ -29,4 +29,12 @@ class Worksheet extends Model
     {
         return $this->belongsToMany(WorkProcess::class);
     }
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class);
+    }
+    public function components()
+    {
+        return $this->belongsToMany(Component::class);
+    }
 }

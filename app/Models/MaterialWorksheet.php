@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkProcess extends Model
+class MaterialWorksheet extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'material_id',
+        'worksheet_id',
+        'quantity',
     ];
-    public function worksheets()
-    {
-        return $this->belongsToMany(Worksheet::class);
-    }
 }

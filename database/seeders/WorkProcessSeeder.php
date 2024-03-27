@@ -16,11 +16,14 @@ class WorkProcessSeeder extends Seeder
     {
         $workProcesses = WorkProcess::factory(5)->create();
 
-        // Munkalapok létrehozása és hozzárendelése a munkafolyamatokhoz
-        Worksheet::factory(10)->create()->each(function ($worksheet) use ($workProcesses) {
-            $worksheet->workProcesses()->attach(
-                $workProcesses->random(rand(1, 3))->pluck('id')->toArray()
-            );
+        // Munkafolyamatok létrehozása és hozzárendelése a munkalapokhoz
+        Worksheet::factory(3)->create()->each(function ($worksheet) {
+            $workProcesses = WorkProcess::inRandomOrder()->take(rand(1, 3))->get();
+            foreach ($workProcesses as $workProcess) {
+                $worksheet->workProcesses()->attach($workProcess, [
+                    'duration' => rand(1, 480) // Véletlenszerű időtartam (1 perc és 8 óra között)
+                ]);
+            }
         });
     }
 }

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WorksheetSeed::class,
             WorkProcessSeeder::class,
+            MaterialSeeder::class,
+            ComponentSeeder::class,
         ]);
     }
 }

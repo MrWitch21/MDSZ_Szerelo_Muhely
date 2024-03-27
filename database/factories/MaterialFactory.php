@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WorkProcess>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Material>
  */
-class WorkProcessFactory extends Factory
+class MaterialFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class WorkProcessFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->numerify('WP-###'),
+            'name' => fake()->numerify('M-###'),
         ];
     }
 }
