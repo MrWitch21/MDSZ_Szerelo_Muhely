@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Worksheet;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -52,5 +52,9 @@ class User extends Authenticatable
     public function hasRole(string $role): bool
     {
         return $this->getAttribute('role') === $role;
+    }
+    public function worksheets()
+    {
+        return $this->hasMany(Worksheet::class);
     }
 }
