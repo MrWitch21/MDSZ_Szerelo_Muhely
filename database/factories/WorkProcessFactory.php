@@ -18,6 +18,7 @@ class WorkProcessFactory extends Factory
     {
         return [
             'name' => fake()->numerify('WP-###'),
+            'price' => fake()->numerify('####'),
         ];
     }
 }

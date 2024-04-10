@@ -18,6 +18,7 @@ class ComponentFactory extends Factory
     {
         return [
             'name' => fake()->numerify('C-###'),
+            'price' => fake()->numerify('####'),
         ];
     }
 }

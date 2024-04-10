@@ -31,9 +31,13 @@ Route::get('/closed', function () {
     return view('closed');
 })->middleware(['auth', 'verified'])->name('closed');
 
-Route::get('/warehouse', function () {
-    return view('warehouse');
-})->middleware(['auth', 'verified'])->name('warehouse');
+Route::get('/component', function () {
+    return view('component');
+})->middleware(['auth', 'verified'])->name('component');
+
+Route::get('/material', function () {
+    return view('material');
+})->middleware(['auth', 'verified'])->name('material');
 
 Route::get('/service', function () {
     return view('service');

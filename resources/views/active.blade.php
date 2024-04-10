@@ -1,15 +1,18 @@
 <x-nav-layout>
     <x-slot name="slot">
         <div class="relative w-full mt-14">
-            <div class="px-4 ">
+            <div>
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div
-                        class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-                        <div
-                            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 order-2 md:order-1">
+                    <div class="flex justify-between items-center pb-4 rounded-t  dark:border-gray-600 p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            Folyamatban lévő munkalapok
+                        </h3>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center justify-end md:space-x-3 space-y-3 md:space-y-0 mx-4 py-4 border-t dark:border-gray-700">
+                        <div class="flex-grow"></div>
+                        <div>
                             <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                type="button">
+                                class="py-2 px-4 flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                                     class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd"
@@ -99,9 +102,8 @@
                         aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                             <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                            látható
+                            /
                             <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-                            -ból
                         </span>
                         <ul class="inline-flex items-stretch -space-x-px">
                             <li>

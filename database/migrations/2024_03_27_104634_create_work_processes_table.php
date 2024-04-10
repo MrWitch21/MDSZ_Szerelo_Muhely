@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('work_processes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('price');
             $table->timestamps();
         });
     }

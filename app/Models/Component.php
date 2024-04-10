@@ -10,6 +10,7 @@ class Component extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'price',
     ];
     public function worksheets()
     {
