@@ -5,7 +5,7 @@
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     <div class="flex justify-between items-center pb-4 rounded-t  dark:border-gray-600 p-4">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Szolgáltatások
+                            Anyagok
                         </h3>
                     </div>
                     <div class="overflow-x-auto">
@@ -14,7 +14,7 @@
                                 class="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-800 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="p-4 text-center">Név</th>
-                                    <th scope="col" class="p-4 text-center">Ár/óra</th>
+                                    <th scope="col" class="p-4 text-center">Ár</th>
                                     <th scope="col" class="p-4 text-center">Létrehozva</th>
                                     <th scope="col" class="p-4 text-center">Műveletek</th>
                                 </tr>
@@ -23,7 +23,7 @@
                                 <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                                        Szolgáltatás neve</td>
+                                        Anyag neve</td>
                                     <td
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                         1000 Ft</td>

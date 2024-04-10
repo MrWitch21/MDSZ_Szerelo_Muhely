@@ -18,6 +18,7 @@ class MaterialFactory extends Factory
     {
         return [
             'name' => fake()->numerify('M-###'),
+            'price' => fake()->numerify('####'),
         ];
     }
 }
