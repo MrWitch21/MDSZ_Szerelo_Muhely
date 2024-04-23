@@ -3,6 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\WorkProcessController;
+use App\Models\WorkProcess;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,14 +37,6 @@ Route::get('/closed', function () {
     return view('closed');
 })->middleware(['auth', 'verified'])->name('closed');
 
-Route::get('/component', function () {
-    return view('component');
-})->middleware(['auth', 'verified'])->name('component');
-
-Route::get('/material', function () {
-    return view('material');
-})->middleware(['auth', 'verified'])->name('material');
-
 Route::get('/service', function () {
     return view('service');
 })->middleware(['auth', 'verified'])->name('service');
@@ -47,6 +45,28 @@ Route::group(['middleware' => ['auth', 'mechanic']], function () {
 });
 Route::group(['middleware' => ['auth', 'receptionist']], function () {
 });
+
+
+Route::get('/component', [ComponentController::class, 'index']);
+Route::get('/component/create',[ComponentController::class, 'create']);
+Route::post('/component', [ComponentController::class, 'store']);
+Route::get('/component/{id}/edit', [ComponentController::class, 'edit']);
+Route::put('/component/{id}', [ComponentController::class, 'update']);
+Route::delete('/component/{id}', [ComponentController::class, 'destroy']);
+
+Route::get('/material', [MaterialController::class, 'index']);
+Route::get('/material/create',[MaterialController::class, 'create']);
+Route::post('/material', [MaterialController::class, 'store']);
+Route::get('/material/{id}/edit', [MaterialController::class, 'edit']);
+Route::put('/material/{id}', [MaterialController::class, 'update']);
+Route::delete('/material/{id}', [MaterialController::class, 'destroy']);
+
+Route::get('/work_process', [WorkProcessController::class, 'index']);
+Route::get('/work_process/create',[WorkProcessController::class, 'create']);
+Route::post('/work_process', [WorkProcessController::class, 'store']);
+Route::get('/work_process/{id}/edit', [WorkProcessController::class, 'edit']);
+Route::put('/work_process/{id}', [WorkProcessController::class, 'update']);
+Route::delete('/work_process/{id}', [WorkProcessController::class, 'destroy']);
 
 //TESZTEK
 /*

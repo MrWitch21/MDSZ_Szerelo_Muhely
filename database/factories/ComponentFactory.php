@@ -17,7 +17,7 @@ class ComponentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->numerify('C-###'),
+            'name' => fake()->unique()->numerify('C-###'),
             'price' => fake()->numerify('####'),
         ];
     }

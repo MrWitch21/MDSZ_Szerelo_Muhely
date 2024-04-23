@@ -17,7 +17,7 @@ class WorkProcessFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->numerify('WP-###'),
+            'name' => fake()->unique()->numerify('WP-###'),
             'price' => fake()->numerify('####'),
         ];
     }

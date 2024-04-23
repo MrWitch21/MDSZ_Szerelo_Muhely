@@ -17,7 +17,7 @@ class MaterialFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->numerify('M-###'),
+            'name' => fake()->unique()->numerify('M-###'),
             'price' => fake()->numerify('####'),
         ];
     }
