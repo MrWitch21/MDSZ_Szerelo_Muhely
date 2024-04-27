@@ -13,21 +13,31 @@ return new class extends Migration
     {
         Schema::create('worksheets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('receptionist_id');
-            $table->unsignedBigInteger('mechanic_id');
             $table->string('license_plate');
             $table->string('make');
             $table->string('model');
             $table->string('owner_name');
             $table->string('owner_address');
             $table->boolean('closed')->default(false);
-            $table->enum('payment_method', ['cash', 'card']);
+            $table->integer('total')->nullable();
+            $table->string('payment_method')->nullable();
             $table->timestamp('closed_at')->nullable();
             $table->timestamps();
-
-            $table->foreign('receptionist_id')->references('id')->on('users');
-            $table->foreign('mechanic_id')->references('id')->on('users');
         });
+        Schema::create('user_worksheet', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('worksheet_id');
+            $table->enum('access_role',['receptionist','mechanic']);
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')
+              ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('worksheet_id')->references('id')->on('worksheets')
+              ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unique(['user_id', 'worksheet_id']);
+          });
+
     }
 
     /**
@@ -35,6 +45,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('user_worksheet');
         Schema::dropIfExists('worksheets');
     }
 };

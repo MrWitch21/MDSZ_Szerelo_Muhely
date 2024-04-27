@@ -33,59 +33,59 @@ class WorkProcessController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|unique:work_processes,name',
             'price' => ['required', 'numeric'],
         ]);
-        WorkProcess::create($data);
+        WorkProcess::create($validatedData);
 
         return redirect('work_process');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show($id)
+    // {
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $work_process = WorkProcess::findOrFail($id);
-        return view('work_process.edit', compact('work_process'));
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $work_process = WorkProcess::findOrFail($id);
+    //     return view('work_process.edit', compact('work_process'));
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $work_process = WorkProcess::findOrFail($id);
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request, string $id)
+    // {
+    //     $work_process = WorkProcess::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('work_processes')->ignore($work_process->id),
-            ],
-            'price' => ['required', 'numeric', 'min:0'],
-        ]);
+    //     $validatedData = $request->validate([
+    //         'name' => [
+    //             'required',
+    //             Rule::unique('work_processes')->ignore($work_process->id),
+    //         ],
+    //         'price' => ['required', 'numeric', 'min:0'],
+    //     ]);
 
-        $work_process->update($data);
+    //     $work_process->update($validatedData);
 
-        return redirect('work_process');
-    }
+    //     return redirect('work_process');
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $work_process = WorkProcess::findOrFail($id);
-        $work_process->delete();
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(string $id)
+    // {
+    //     $work_process = WorkProcess::findOrFail($id);
+    //     $work_process->delete();
 
-        return redirect('work_process');
-    }
+    //     return redirect('work_process');
+    // }
 }

@@ -55,6 +55,6 @@ class User extends Authenticatable
     }
     public function worksheets()
     {
-        return $this->hasMany(Worksheet::class);
+        return $this->belongsToMany(Worksheet::class);
     }
 }

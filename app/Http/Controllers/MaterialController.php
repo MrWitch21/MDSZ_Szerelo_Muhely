@@ -33,60 +33,60 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|unique:materials,name',
             'price' => ['required', 'numeric'],
         ]);
-        Material::create($data);
+        Material::create($validatedData);
 
         return redirect('material');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $material = Material::findOrFail($id);
-        return view('material.edit', compact('material'));
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $material = Material::findOrFail($id);
+    //     return view('material.edit', compact('material'));
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $material = Material::findOrFail($id);
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request, string $id)
+    // {
+    //     $material = Material::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('materials')->ignore($material->id),
-            ],
-            'price' => ['required', 'numeric', 'min:0'],
-        ]);
+    //     $validatedData = $request->validate([
+    //         'name' => [
+    //             'required',
+    //             Rule::unique('materials')->ignore($material->id),
+    //         ],
+    //         'price' => ['required', 'numeric', 'min:0'],
+    //     ]);
 
-        $material->update($data);
+    //     $material->update($validatedData);
 
-        return redirect('material');
-    }
+    //     return redirect('material');
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $material = Material::findOrFail($id);
-        $material->delete();
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(string $id)
+    // {
+    //     $material = Material::findOrFail($id);
+    //     $material->delete();
 
-        return redirect('material');
-    }
+    //     return redirect('material');
+    // }
 }

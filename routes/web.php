@@ -7,6 +7,7 @@ use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\WorkProcessController;
+use App\Http\Controllers\WorksheetController;
 use App\Models\WorkProcess;
 
 /*
@@ -46,178 +47,61 @@ Route::group(['middleware' => ['auth', 'mechanic']], function () {
 Route::group(['middleware' => ['auth', 'receptionist']], function () {
 });
 
+Route::resource('component', ComponentController::class)
+    ->only('index', 'create', 'store');
+// Route::get('/component', [ComponentController::class, 'index']);
+// Route::get('/component/create',[ComponentController::class, 'create']);
+// Route::post('/component', [ComponentController::class, 'store']);
+// Route::get('/component/{id}/edit', [ComponentController::class, 'edit']);
+// Route::put('/component/{id}', [ComponentController::class, 'update']);
+// Route::delete('/component/{id}', [ComponentController::class, 'destroy']);
 
-Route::get('/component', [ComponentController::class, 'index']);
-Route::get('/component/create',[ComponentController::class, 'create']);
-Route::post('/component', [ComponentController::class, 'store']);
-Route::get('/component/{id}/edit', [ComponentController::class, 'edit']);
-Route::put('/component/{id}', [ComponentController::class, 'update']);
-Route::delete('/component/{id}', [ComponentController::class, 'destroy']);
+Route::resource('material', MaterialController::class)
+    ->only('index', 'create', 'store');
+// Route::get('/material', [MaterialController::class, 'index']);
+// Route::get('/material/create',[MaterialController::class, 'create']);
+// Route::post('/material', [MaterialController::class, 'store']);
+// Route::get('/material/{id}/edit', [MaterialController::class, 'edit']);
+// Route::put('/material/{id}', [MaterialController::class, 'update']);
+// Route::delete('/material/{id}', [MaterialController::class, 'destroy']);
 
-Route::get('/material', [MaterialController::class, 'index']);
-Route::get('/material/create',[MaterialController::class, 'create']);
-Route::post('/material', [MaterialController::class, 'store']);
-Route::get('/material/{id}/edit', [MaterialController::class, 'edit']);
-Route::put('/material/{id}', [MaterialController::class, 'update']);
-Route::delete('/material/{id}', [MaterialController::class, 'destroy']);
+Route::resource('work_process', WorkProcessController::class)
+    ->only('index', 'create', 'store');
+// Route::get('/work_process', [WorkProcessController::class, 'index']);
+// Route::get('/work_process/create',[WorkProcessController::class, 'create']);
+// Route::post('/work_process', [WorkProcessController::class, 'store']);
+// Route::get('/work_process/{id}/edit', [WorkProcessController::class, 'edit']);
+// Route::put('/work_process/{id}', [WorkProcessController::class, 'update']);
+// Route::delete('/work_process/{id}', [WorkProcessController::class, 'destroy']);
 
-Route::get('/work_process', [WorkProcessController::class, 'index']);
-Route::get('/work_process/create',[WorkProcessController::class, 'create']);
-Route::post('/work_process', [WorkProcessController::class, 'store']);
-Route::get('/work_process/{id}/edit', [WorkProcessController::class, 'edit']);
-Route::put('/work_process/{id}', [WorkProcessController::class, 'update']);
-Route::delete('/work_process/{id}', [WorkProcessController::class, 'destroy']);
+Route::get('/worksheet/closed', [WorksheetController::class, 'closed'])->name('worksheet.closed');
 
-//TESZTEK
-/*
-Route::get('/users', function () {
-    $users = DB::table('users')->get();
-    dd($users);
-});
+Route::get('/worksheet', [WorksheetController::class, 'index']);
+Route::get('/worksheet/create', [WorksheetController::class, 'create']);
+Route::post('/worksheet', [WorksheetController::class, 'store']);
+Route::get('/worksheet/{worksheetid}', [WorksheetController::class, 'show'])->name('worksheet.show');
+Route::get('/worksheet/{worksheetid}/edit', [WorksheetController::class, 'edit'])->name('worksheet.edit');
+Route::put('/worksheet/{worksheetid}', [WorksheetController::class, 'update']);
 
-Route::get('/worksheets', function () {
-    $worksheets = DB::table('worksheets')->get();
-    dd($worksheets);
-});
+Route::get('/worksheet/{worksheetid}/edit/closing', [WorksheetController::class, 'closing'])->name('worksheet.closing');
+Route::put('/worksheet/{worksheetid}/edit/close', [WorksheetController::class, 'close']);
 
-Route::get('/work_processes', function () {
-    $work_processes = DB::table('work_processes')->get();
-    dd($work_processes);
-});
+Route::get('/worksheet/{worksheetid}/component/add', [WorksheetController::class, 'componentCreate'])->name('worksheet.components_add');
+Route::post('/worksheet/{worksheetid}/component/store', [WorksheetController::class, 'componentStore']);
+Route::get('/worksheet/{worksheetid}/edit/{component_worksheetid}/component', [WorksheetController::class, 'componentsEdit'])->name('worksheet.components_edit');
+Route::put('/worksheet/{worksheetid}/{component_worksheetid}/component/update', [WorksheetController::class, 'componentsUpdate']);
+Route::delete('/worksheet/{worksheetid}/{component_worksheetid}/component/destroy', [WorksheetController::class, 'componentDestroy']);
 
-Route::get('/work_process_worksheet', function () {
-    $processes_worksheets = DB::table('work_process_worksheet')->get();
-    dd($processes_worksheets);
-});
+Route::get('/worksheet/{worksheetid}/material/add', [WorksheetController::class, 'materialCreate'])->name('worksheet.materials_add');
+Route::post('/worksheet/{worksheetid}/material/store', [WorksheetController::class, 'materialStore']);
+Route::get('/worksheet/{worksheetid}/edit/{material_worksheetid}/material', [WorksheetController::class, 'materialsEdit'])->name('worksheet.materials_edit');
+Route::put('/worksheet/{worksheetid}/{material_worksheetid}/material/update', [WorksheetController::class, 'materialsUpdate']);
+Route::delete('/worksheet/{worksheetid}/{material_worksheetid}/material/destroy', [WorksheetController::class, 'materialDestroy']);
 
-Route::get('/materials', function () {
-    $materials = DB::table('materials')->get();
-    dd($materials);
-});
+Route::get('/worksheet/{worksheetid}/work_process/add', [WorksheetController::class, 'work_processCreate'])->name('worksheet.work_processes_add');
+Route::post('/worksheet/{worksheetid}/work_process/store', [WorksheetController::class, 'work_processStore']);
+Route::get('/worksheet/{worksheetid}/edit/{work_process_worksheetid}/work_process', [WorksheetController::class, 'work_processesEdit'])->name('worksheet.work_processes_edit');
+Route::put('/worksheet/{worksheetid}/{work_process_worksheetid}/work_process/update', [WorksheetController::class, 'work_processesUpdate']);
+Route::delete('/worksheet/{worksheetid}/{work_process_worksheetid}/work_process/destroy', [WorksheetController::class, 'work_processDestroy']);
 
-Route::get('/material_worksheet', function () {
-    $materials_worksheets = DB::table('material_worksheet')->get();
-    dd($materials_worksheets);
-});
-
-Route::get('/components', function () {
-    $components = DB::table('components')->get();
-    dd($components);
-});
-
-Route::get('/component_worksheet', function () {
-    $components_worksheets = DB::table('component_worksheet')->get();
-    dd($components_worksheets);
-});
-Route::get('/components_complex_query', function () {
-    // Munkalapok lekérdezése
-    $worksheets = DB::table('worksheets')->get();
-
-    // Munkafolyamatok és azok munkalaphoz való kapcsolatainak lekérdezése
-    $processes_worksheets = DB::table('work_process_worksheet')->get();
-
-    // Alkatrészek és azok munkalaphoz való kapcsolatainak lekérdezése
-    $components_worksheets = DB::table('component_worksheet')->get();
-
-    // Az összetett eredmény létrehozása
-    $result = [];
-
-    // Munkalapokon való iterálás
-    foreach ($worksheets as $worksheet) {
-        $worksheet_data = [
-            'worksheet' => $worksheet,
-            'work_processes' => [],
-            'components' => []
-        ];
-
-        // Az adott munkalaphoz tartozó munkafolyamatok lekérdezése
-        $worksheet_processes = $processes_worksheets->where('worksheet_id', $worksheet->id);
-
-        foreach ($worksheet_processes as $process) {
-            $process_data = DB::table('work_processes')->find($process->work_process_id);
-            $worksheet_data['work_processes'][] = $process_data;
-        }
-
-        // Az adott munkalaphoz tartozó alkatrészek lekérdezése
-        $worksheet_components = $components_worksheets->where('worksheet_id', $worksheet->id);
-
-        foreach ($worksheet_components as $component) {
-            $component_data = DB::table('components')->find($component->component_id);
-            $worksheet_data['components'][] = $component_data;
-        }
-
-        // Az adott munkalaphoz tartozó adatok hozzáadása az eredményhöz
-        $result[] = $worksheet_data;
-    }
-
-    // Eredmény kiíratása
-    dd($result);
-});
-
-Route::get('/materials_complex_query', function () {
-    // Anyagok lekérdezése
-    $materials = DB::table('materials')->get();
-
-    // Anyagokhoz kapcsolódó munkalapok lekérdezése
-    $materials_worksheets = DB::table('material_worksheet')->get();
-
-    // Az összetett eredmény létrehozása
-    $result = [];
-
-    // Anyagokon való iterálás
-    foreach ($materials as $material) {
-        $material_data = [
-            'material' => $material,
-            'worksheets' => []
-        ];
-
-        // Az adott anyaghoz tartozó munkalapok lekérdezése
-        $material_worksheets_data = $materials_worksheets->where('material_id', $material->id);
-
-        foreach ($material_worksheets_data as $material_worksheet) {
-            $worksheet_data = DB::table('worksheets')->find($material_worksheet->worksheet_id);
-            $material_data['worksheets'][] = $worksheet_data;
-        }
-
-        // Az adott anyaghoz tartozó adatok hozzáadása az eredményhöz
-        $result[] = $material_data;
-    }
-
-    // Eredmény kiíratása
-    dd($result);
-});
-
-Route::get('/work_processes_complex_query', function () {
-    // Munkafolyamatok lekérdezése
-    $work_processes = DB::table('work_processes')->get();
-
-    // Munkafolyamatokhoz kapcsolódó munkalapok lekérdezése
-    $processes_worksheets = DB::table('work_process_worksheet')->get();
-
-    // Az összetett eredmény létrehozása
-    $result = [];
-
-    // Munkafolyamatokon való iterálás
-    foreach ($work_processes as $process) {
-        $process_data = [
-            'process' => $process,
-            'worksheets' => []
-        ];
-
-        // Az adott munkafolyamathoz tartozó munkalapok lekérdezése
-        $process_worksheets_data = $processes_worksheets->where('work_process_id', $process->id);
-
-        foreach ($process_worksheets_data as $process_worksheet) {
-            $worksheet_data = DB::table('worksheets')->find($process_worksheet->worksheet_id);
-            $process_data['worksheets'][] = $worksheet_data;
-        }
-
-        // Az adott munkafolyamathoz tartozó adatok hozzáadása az eredményhöz
-        $result[] = $process_data;
-    }
-
-    // Eredmény kiíratása
-    dd($result);
-});
-*/
 require __DIR__ . '/auth.php';

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MaterialWorksheet extends Model
 {
     use HasFactory;
+
+    protected $table = 'material_worksheet';
+
     protected $fillable = [
         'material_id',
         'worksheet_id',

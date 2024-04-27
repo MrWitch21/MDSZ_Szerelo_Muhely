@@ -33,60 +33,60 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|unique:components,name',
             'price' => ['required', 'numeric'],
         ]);
-        Component::create($data);
+        Component::create($validatedData);
 
         return redirect('component');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $component = Component::findOrFail($id);
-        return view('component.edit', compact('component'));
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $component = Component::findOrFail($id);
+    //     return view('component.edit', compact('component'));
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,  $id)
-    {
-        $component = Component::findOrFail($id);
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request,  $id)
+    // {
+    //     $component = Component::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('components')->ignore($component->id),
-            ],
-            'price' => ['required', 'numeric', 'min:0'],
-        ]);
+    //     $validatedData = $request->validate([
+    //         'name' => [
+    //             'required',
+    //             Rule::unique('components')->ignore($component->id),
+    //         ],
+    //         'price' => ['required', 'numeric', 'min:0'],
+    //     ]);
 
-        $component->update($data);
+    //     $component->update($validatedData);
 
-        return redirect('component');
-    }
+    //     return redirect('component');
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $component = Component::findOrFail($id);
-        $component->delete();
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy($id)
+    // {
+    //     $component = Component::findOrFail($id);
+    //     $component->delete();
 
-        return redirect('component');
-    }
+    //     return redirect('component');
+    // }
 }

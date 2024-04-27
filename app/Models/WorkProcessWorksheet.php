@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WorkProcessWorksheet extends Model
 {
     use HasFactory;
+
+    protected $table = 'work_process_worksheet';
+
     protected $fillable = [
         'work_process_id',
         'worksheet_id',

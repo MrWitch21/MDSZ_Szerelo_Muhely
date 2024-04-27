@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('work_process_id');
             $table->unsignedBigInteger('worksheet_id');
             $table->integer('duration');
+            $table->timestamps();
             $table->foreign('work_process_id')->references('id')->on('work_processes')
               ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('worksheet_id')->references('id')->on('worksheets')

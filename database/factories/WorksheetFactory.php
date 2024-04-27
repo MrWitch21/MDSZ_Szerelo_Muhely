@@ -17,15 +17,13 @@ class WorksheetFactory extends Factory
     public function definition(): array
     {
         return [
-            'receptionist_id' => 1,
-            'mechanic_id' => 2,
             'license_plate' => fake()->bothify('???-###'),
             'make' => fake()->randomElement($array = array ('AUDI','OPEL','BMW','Volkswagen')),
             'model' => fake()->bothify('??-###'),
             'owner_name' => fake()->name(),
             'owner_address' => fake()->address(),
             'closed' => false,
-            'payment_method' => fake()->randomElement(['cash', 'card']),
+            'payment_method' => null,
             'closed_at' => null,
         ];
     }

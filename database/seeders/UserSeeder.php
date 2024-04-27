@@ -15,8 +15,15 @@ class UserSeeder extends Seeder
     {
         // Receptionist user
         User::create([
-            'name' => 'Jani',
-            'email' => 'receptionist@example.com',
+            'name' => 'Jani1',
+            'email' => 'receptionist1@example.com',
+            'password' => bcrypt('password'),
+            'usercode' => 'ABC122',
+            'role' => 'receptionist',
+        ]);
+        User::create([
+            'name' => 'Jani2',
+            'email' => 'receptionist2@example.com',
             'password' => bcrypt('password'),
             'usercode' => 'ABC123',
             'role' => 'receptionist',
@@ -24,10 +31,17 @@ class UserSeeder extends Seeder
 
         // Mechanic user
         User::create([
-            'name' => 'Pista',
-            'email' => 'mechanic@example.com',
+            'name' => 'Pista1',
+            'email' => 'mechanic1@example.com',
             'password' => bcrypt('password'),
             'usercode' => 'ABC124',
+            'role' => 'mechanic',
+        ]);
+        User::create([
+            'name' => 'Pista2',
+            'email' => 'mechanic2@example.com',
+            'password' => bcrypt('password'),
+            'usercode' => 'ABC125',
             'role' => 'mechanic',
         ]);
     }
