@@ -75,6 +75,7 @@ Route::resource('work_process', WorkProcessController::class)
 // Route::delete('/work_process/{id}', [WorkProcessController::class, 'destroy']);
 
 Route::get('/worksheet/closed', [WorksheetController::class, 'closed'])->name('worksheet.closed');
+Route::get('/worksheet/closed/{worksheetid}', [WorksheetController::class, 'closedShow'])->name('worksheet.closed.show');
 
 Route::get('/worksheet', [WorksheetController::class, 'index']);
 Route::get('/worksheet/create', [WorksheetController::class, 'create']);

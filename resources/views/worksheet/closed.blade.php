@@ -74,7 +74,7 @@
                                             <td
                                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="flex items-center justify-center">
-                                                    <a href="{{ route('worksheet.show', $worksheet->id) }}" class="inline-flex items-center">
+                                                    <a href="{{ route('worksheet.closed.show', $worksheet->id) }}" class="inline-flex items-center">
                                                         <button type="button"
                                                             class="py-2 px-3 mr-6 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"

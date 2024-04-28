@@ -163,7 +163,12 @@ class WorksheetController extends Controller
 
         return view('worksheet.show', compact('worksheet'));
     }
+    public function closedShow(string $id)
+    {
+        $worksheet = Worksheet::findOrFail($id);
 
+        return view('worksheet.closed_show', compact('worksheet'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
