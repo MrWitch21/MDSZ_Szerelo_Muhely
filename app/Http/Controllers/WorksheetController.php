@@ -24,13 +24,17 @@ class WorksheetController extends Controller
 
             $worksheet = Worksheet::findOrFail($worksheetId);
             if ($worksheet->closed) {
-                return redirect()->route('worksheet.closed')->with('error', 'A munkalap már le van zárva.');
+                return redirect()->route('worksheet.closed');
+            }
+
+            if (auth()->user()->role === 'mechanic' && !$worksheet->users()->where('users.id', auth()->id())->exists()) {
+                return redirect('/');
             }
 
             return $next($request);
         })->only([
             'edit', 'update', 'show', 'componentsEdit', 'materialsEdit', 'work_processesEdit',
-            'componentsUpdate', 'materialsUpdate', 'work_processesUpdate','closing'
+            'componentsUpdate', 'materialsUpdate', 'work_processesUpdate', 'closing'
         ]);
     }
     /**
@@ -38,18 +42,40 @@ class WorksheetController extends Controller
      */
     public function index()
     {
-        $worksheet = Worksheet::get();
+        if (Auth::check() && Auth::user()->role === 'mechanic') {
+            $mechanicId = Auth::id();
+
+            $worksheetsQuery = Worksheet::whereHas('users', function ($query) use ($mechanicId) {
+                $query->where('users.id', $mechanicId);
+            })->orderBy('created_at');
+        } else {
+            $worksheetsQuery = Worksheet::orderBy('created_at');
+        }
+
+        if (request()->has('search')) {
+            $worksheetsQuery = $worksheetsQuery->where(request()->get('search_select', ''), 'like', '%' . request()->get('search', '') . '%');
+        }
+
+        $worksheets = $worksheetsQuery->paginate(10);
 
         return view('worksheet.index', [
-            'worksheets' => Worksheet::orderBy('created_at')->paginate(10)
+            'worksheets' => $worksheets
         ]);
     }
+
     public function closed()
     {
-        $worksheet = Worksheet::get();
+        $worksheetsQuery = Worksheet::orderByDesc('closed_at');
+
+        if (request()->has('search')) {
+            $worksheetsQuery = $worksheetsQuery->where(request()->get('search_select', ''), 'like', '%' . request()->get('search', '') . '%');
+        }
+
+        $worksheets = $worksheetsQuery->paginate(10);
+
 
         return view('worksheet.closed', [
-            'worksheets' => Worksheet::orderByDesc('closed_at')->paginate(10)
+            'worksheets' => $worksheets
         ]);
     }
 
@@ -157,7 +183,7 @@ class WorksheetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $worksheet = Worksheet::findOrFail($id);
 
@@ -177,7 +203,10 @@ class WorksheetController extends Controller
         $worksheet = Worksheet::findOrFail($id);
 
         $mechanics = User::where('role', 'mechanic')->get();
-        return view('worksheet.edit', compact('worksheet', 'mechanics'));
+
+        $isMechanic = auth()->user()->role === 'mechanic';
+
+        return view('worksheet.edit', compact('worksheet', 'mechanics', 'isMechanic'));
     }
     public function closing(string $id)
     {

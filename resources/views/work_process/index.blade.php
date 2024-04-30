@@ -11,7 +11,6 @@
                             <a href="work_process/create">
                                 <button type="submit"
                                 class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
-
                                     Új szolgáltatás
                                 </button>
                             </a>

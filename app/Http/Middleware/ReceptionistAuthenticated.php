@@ -20,7 +20,7 @@ class ReceptionistAuthenticated
             $user = auth()->user();
 
             if ($user->hasRole('mechanic')) {
-                return redirect(route('mechanic_dashboard'));
+                return redirect(route('/'));
             } else if ($user->hasRole('receptionist')) {
                 return $next($request);
             }

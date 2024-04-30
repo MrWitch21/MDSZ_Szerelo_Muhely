@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('owner_name');
             $table->string('owner_address');
+            $table->string('hash_name')->unique();
             $table->boolean('closed')->default(false);
             $table->integer('total')->nullable();
             $table->string('payment_method')->nullable();

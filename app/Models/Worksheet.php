@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Worksheet extends Model
 {
@@ -23,6 +23,22 @@ class Worksheet extends Model
         'closed_at',
     ];
     protected $dates = ['closed_at'];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($worksheet) {
+            $worksheet->hash_name = $worksheet->generateHashName();
+        });
+    }
+
+    protected function generateHashName()
+    {
+        $dataToHash = $this->owner_name . '-' . $this->license_plate . '-' . now();
+        $hashedData = md5($dataToHash);
+        return $hashedData;
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

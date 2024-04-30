@@ -3,36 +3,33 @@
         <div class="relative w-full mt-14">
             <div>
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div class="flex justify-between items-center pb-4 rounded-t  dark:border-gray-600 p-4">
+                    <div class="flex justify-between items-center pb-4 rounded-t  border-b dark:border-gray-600 p-4">
                         <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
                             Lezárt munkalapok
                         </h3>
-                    </div>
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-end md:space-x-3 space-y-3 md:space-y-0 mx-4 py-4 border-t dark:border-gray-700">
-                        <div class="flex-grow"></div>
-                        <div>
-                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                class="py-2 px-4 flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                    class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                Szűrési beállítások
-                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                </svg>
-                            </button>
+                        <div class="w-full md:w-2/4">
+                            <form class="flex items-center justify-end">
+                                <div class="relative mr-4">
+                                    <label for="search_select" class="sr-only">Keresés mező</label>
+                                    <select id="search_select" name="search_select"
+                                        class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-6 rounded-lg shadow-sm text-sm focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-600 dark:focus:border-gray-600">
+                                        <option value="owner_name" @selected(old('search_select',  request()->input('search_select')) == "owner_name")>Tulajdonos neve</option>
+                                        <option value="owner_address" @selected(old('search_select',  request()->input('search_select')) == "owner_address")>Tulajdonos címe</option>
+                                        <option value="license_plate" @selected(old('search_select',  request()->input('search_select')) == "license_plate")>Rendszám</option>
+                                        <option value="make" @selected(old('search_select',  request()->input('search_select')) == "make")>Márka</option>
+                                        <option value="model" @selected(old('search_select',  request()->input('search_select')) == "model")>Modell</option>
+                                        <option value="created_at" @selected(old('search_select',  request()->input('search_select')) == "created_at")>Létrehozva</option>
+                                    </select>
+                                </div>
+                                @include('shared.search-bar')
+                            </form>
                         </div>
                     </div>
+
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-800 dark:text-gray-400">
+                                class="text-sm text-gray-700 uppercase bg-blue-200 dark:bg-gray-800 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="p-4 text-center">Szerelő</th>
                                     <th scope="col" class="p-4 text-center">Tulajdonos neve</th>

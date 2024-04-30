@@ -33,7 +33,7 @@
                                 for="owner_name">Tulajdonos neve</label>
                             <input type="text" id="owner_name" name="owner_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                value="{{ $worksheet->owner_name }}">
+                                value="{{ $worksheet->owner_name }}" {{ $isMechanic ? 'disabled' : '' }}>
                             @error('owner_name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -43,7 +43,7 @@
                                 for="owner_address">Tulajdonos címe</label>
                             <input type="text" id="owner_address" name="owner_address"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                value="{{ $worksheet->owner_address }}">
+                                value="{{ $worksheet->owner_address }}" {{ $isMechanic ? 'disabled' : '' }}>
                             @error('owner_address')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -53,7 +53,7 @@
                                 for="license_plate">Rendszám</label>
                             <input type="text" id="license_plate" name="license_plate"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                value="{{ $worksheet->license_plate }}">
+                                value="{{ $worksheet->license_plate }}" {{ $isMechanic ? 'disabled' : '' }}>
                             @error('license_plate')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -63,7 +63,7 @@
                                 for="make">Márka</label>
                             <input type="text" id="make" name="make"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                value="{{ $worksheet->make }}">
+                                value="{{ $worksheet->make }}" {{ $isMechanic ? 'disabled' : '' }}>
                             @error('make')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -73,7 +73,7 @@
                                 for="model">Modell</label>
                             <input type="text" id="model" name="model"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                value="{{ $worksheet->model }}">
+                                value="{{ $worksheet->model }}" {{ $isMechanic ? 'disabled' : '' }}>
                             @error('model')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -82,7 +82,8 @@
                             <label for="mechanic_id"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Szerelő</label>
                             <select id="mechanic_id" name="mechanic_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                {{ $isMechanic ? 'disabled' : '' }}>
                                 @foreach ($mechanics as $mechanic)
                                     <option value="{{ $mechanic->id }}" @selected($worksheet->users->pluck('id')->contains($mechanic->id))>
                                         {{ $mechanic->name }}
@@ -104,7 +105,8 @@
                         </div>
                         <div class="flex justify-end" style="align-items: flex-end;">
                             <button type="submit"
-                                class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">Frissítés</button>
+                                class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out"
+                                {{ $isMechanic ? 'disabled' : '' }}>Frissítés</button>
                         </div>
                     </div>
                 </form>
@@ -335,3 +337,20 @@
         </div>
     </x-slot>
 </x-nav-layout>
+<style>
+    input:disabled {
+        background-color: #4a5568;
+        color: #718096;
+    }
+
+
+    button:disabled {
+        background-color: #4a5568;
+        color: #718096;
+    }
+
+    button:disabled:hover {
+        background-color: #4a5568;
+        color: #718096;
+    }
+</style>

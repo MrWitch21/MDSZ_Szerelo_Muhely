@@ -7,27 +7,21 @@
                         <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
                             Folyamatban lévő munkalapok
                         </h3>
-                        <div class="w-full md:w-1/4">
-                            <form class="flex items-center">
-                                <label for="search" class="sr-only">Keresés</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="search"
-                                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Keresés" required="">
+                        <div class="w-full md:w-2/4">
+                            <form action="{{ route('worksheet') }}" method="get" class="flex items-center justify-end">
+                                <div class="relative mr-4">
+                                    <label for="search_select" class="sr-only">Keresés mező</label>
+                                    <select id="search_select" name="search_select"
+                                        class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-6 rounded-lg shadow-sm text-sm focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-600 dark:focus:border-gray-600">
+                                        <option value="owner_name" @selected(old('search_select',  request()->input('search_select')) == "owner_name")>Tulajdonos neve</option>
+                                        <option value="owner_address" @selected(old('search_select',  request()->input('search_select')) == "owner_address")>Tulajdonos címe</option>
+                                        <option value="license_plate" @selected(old('search_select',  request()->input('search_select')) == "license_plate")>Rendszám</option>
+                                        <option value="make" @selected(old('search_select',  request()->input('search_select')) == "make")>Márka</option>
+                                        <option value="model" @selected(old('search_select',  request()->input('search_select')) == "model")>Modell</option>
+                                        <option value="created_at" @selected(old('search_select',  request()->input('search_select')) == "created_at")>Létrehozva</option>
+                                    </select>
                                 </div>
-                                <div class="flex justify-end" style="align-items: flex-end;">
-                                    <button type="submit"
-                                        class="ml-4 bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
-                                        Keresés</button>
-                                </div>
+                                @include('shared.search-bar')
                             </form>
                         </div>
                     </div>
@@ -35,7 +29,7 @@
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-800 dark:text-gray-400">
+                                class="text-ms text-gray-700 uppercase bg-blue-200 dark:bg-gray-800 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="p-4 text-center">Szerelő</th>
                                     <th scope="col" class="p-4 text-center">Tulajdonos neve</th>
@@ -105,7 +99,7 @@
                                                         Módosítás
                                                     </button>
                                                     </a>
-                                                    <span class="mx-4"></span>
+                                                    <span class="mx-2"></span>
                                                     <a href="{{ route('worksheet.closing', $worksheet->id) }}" class="inline-flex items-center">
                                                         <button type="submit"
                                                         class="bg-lime-600 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
