@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\WorkProcessController;
@@ -37,9 +38,7 @@ Route::group(['middleware' => ['auth', 'receptionist']], function () {
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', function () {
-        return view('home');
-    })->name('/');
+    Route::get('/',[HomeController::class, 'index'])->name('/');
 
     Route::resource('component', ComponentController::class)
         ->only('index', 'create', 'store');
