@@ -71,7 +71,7 @@
                                             <td
                                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="flex items-center justify-center">
-                                                    <a href="{{ route('worksheet.show', $worksheet->id) }}" class="inline-flex items-center">
+                                                    <a href="{{ route('worksheet.show', ['worksheet' => $worksheet]) }}" class="inline-flex items-center">
                                                         <button type="button"
                                                             class="py-2 px-3 mr-6 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -84,7 +84,7 @@
                                                             Megtekintés
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('worksheet.edit', $worksheet->id) }}" class="inline-flex items-center">
+                                                    <a href="{{ route('worksheet.edit', ['worksheet' => $worksheet]) }}" class="inline-flex items-center">
                                                         <button type="submit"
                                                         class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -99,8 +99,9 @@
                                                         Módosítás
                                                     </button>
                                                     </a>
+                                                    @if(!$isMechanic)
                                                     <span class="mx-2"></span>
-                                                    <a href="{{ route('worksheet.closing', $worksheet->id) }}" class="inline-flex items-center">
+                                                    <a href="{{ route('worksheet.closing', ['worksheet' => $worksheet]) }}" class="inline-flex items-center">
                                                         <button type="submit"
                                                         class="bg-lime-600 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 mr-1 -ml-0.5">
@@ -109,6 +110,7 @@
                                                         Lezárás
                                                     </button>
                                                     </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

@@ -17,11 +17,8 @@ class ReceptionistAuthenticated
     {
         if (auth()->check()) {
             /** @var User $user */
-            $user = auth()->user();
-
-            if ($user->hasRole('mechanic')) {
-                return redirect(route('/'));
-            } else if ($user->hasRole('receptionist')) {
+           $user = auth()->user();
+           if($user->hasRole('receptionist')){
                 return $next($request);
             }
         }

@@ -122,7 +122,7 @@
                             Alkatrészek
                         </h3>
                         <div class="pr-8">
-                            <a href="{{ route('worksheet.components_add', $worksheet->id) }}">
+                            <a href="{{ route('worksheet.components_add', ['worksheet' => $worksheet]) }}">
                                 <button type="submit"
                                     class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
                                     Új hozzáadás
@@ -160,7 +160,7 @@
                                         <td
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                             <div class="flex items-center justify-center">
-                                                <a href="{{ route('worksheet.components_edit', ['worksheetid' => $worksheet->id, 'component_worksheetid' => $component->id]) }}"
+                                                <a href="{{ route('worksheet.components_edit', ['worksheet' => $worksheet, 'component_worksheetid' => $component->id]) }}"
                                                     class="inline-flex items-center">
                                                     <button type="submit"
                                                         class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
@@ -196,7 +196,7 @@
                             Anyagok
                         </h3>
                         <div class="pr-8">
-                            <a href="{{ route('worksheet.materials_add', $worksheet->id) }}">
+                            <a href="{{ route('worksheet.materials_add', ['worksheet' => $worksheet]) }}">
                                 <button type="submit"
                                     class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
                                     Új hozzáadás
@@ -234,7 +234,7 @@
                                         <td
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                             <div class="flex items-center justify-center">
-                                                <a href="{{ route('worksheet.materials_edit', ['worksheetid' => $worksheet->id, 'material_worksheetid' => $material->id]) }}"
+                                                <a href="{{ route('worksheet.materials_edit', ['worksheet' => $worksheet, 'material_worksheetid' => $material->id]) }}"
                                                     class="inline-flex items-center">
                                                     <button type="submit"
                                                         class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">
@@ -271,7 +271,7 @@
                             Szolgáltatások
                         </h3>
                         <div class="pr-8">
-                            <a href="{{ route('worksheet.work_processes_add', $worksheet->id) }}">
+                            <a href="{{ route('worksheet.work_processes_add', ['worksheet' => $worksheet]) }}">
                                 <button type="submit"
                                     class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
                                     Új hozzáadás
@@ -309,7 +309,7 @@
                                         <td
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                             <div class="flex items-center justify-center">
-                                                <a href="{{ route('worksheet.work_processes_edit', ['worksheetid' => $worksheet->id, 'work_process_worksheetid' => $work_process->id]) }}"
+                                                <a href="{{ route('worksheet.work_processes_edit', ['worksheet' => $worksheet, 'work_process_worksheetid' => $work_process->id]) }}"
                                                     class="inline-flex items-center">
                                                     <button type="submit"
                                                         class="bg-blue-500 text-white font-semibold h-10 px-4 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out flex items-center">

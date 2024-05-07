@@ -18,10 +18,7 @@ class MechanicAuthenticated
         if (auth()->check()) {
             /** @var User $user */
             $user = auth()->user();
-
-            if ($user->hasRole('receptionist')) {
-                return redirect(route('/'));
-            }else if ($user->hasRole('mechanic')) {
+            if($user->hasRole('mechanic')){
                 return $next($request);
             }
         }

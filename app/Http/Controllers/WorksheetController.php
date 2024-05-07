@@ -15,27 +15,12 @@ use Illuminate\Support\Facades\Auth;
 
 class WorksheetController extends Controller
 {
-    public function __construct()
+    public function __construct(Worksheet $worksheet)
     {
-        $this->middleware(function ($request, $next) {
-            $routeName = $request->route()->getName();
-            $worksheetId = $request->route('worksheetid');
-
-
-            $worksheet = Worksheet::findOrFail($worksheetId);
-            if ($worksheet->closed) {
-                return redirect()->route('worksheet.closed');
-            }
-
-            if (auth()->user()->role === 'mechanic' && !$worksheet->users()->where('users.id', auth()->id())->exists()) {
-                return redirect('/');
-            }
-
-            return $next($request);
-        })->only([
-            'edit', 'update', 'show', 'componentsEdit', 'materialsEdit', 'work_processesEdit',
-            'componentsUpdate', 'materialsUpdate', 'work_processesUpdate', 'closing'
-        ]);
+        if ($worksheet->closed) {
+            return redirect()->route('worksheet.closed');
+        }
+        //$this->middleware('mechanic')->only([]);
     }
     /**
      * Display a listing of the resource.
@@ -47,30 +32,32 @@ class WorksheetController extends Controller
 
             $worksheetsQuery = Worksheet::whereHas('users', function ($query) use ($mechanicId) {
                 $query->where('users.id', $mechanicId);
-            })->orderBy('created_at');
+            })
+            ->where('closed', false)
+            ->orderBy('created_at');
         } else {
-            $worksheetsQuery = Worksheet::orderBy('created_at');
+            $worksheetsQuery = Worksheet::where('closed', false)->orderBy('created_at');
         }
 
         if (request()->has('search')) {
             $worksheetsQuery = $worksheetsQuery->where(request()->get('search_select', ''), 'like', '%' . request()->get('search', '') . '%');
         }
-
+        $isMechanic = auth()->user()->role === 'mechanic';
         $worksheets = $worksheetsQuery->paginate(10);
 
         return view('worksheet.index', [
-            'worksheets' => $worksheets
+            'worksheets' => $worksheets,
+            'isMechanic' => $isMechanic
         ]);
     }
 
     public function closed()
     {
-        $worksheetsQuery = Worksheet::orderByDesc('closed_at');
+        $worksheetsQuery = Worksheet::where('closed', true)->orderByDesc('closed_at');
 
         if (request()->has('search')) {
             $worksheetsQuery = $worksheetsQuery->where(request()->get('search_select', ''), 'like', '%' . request()->get('search', '') . '%');
         }
-
         $worksheets = $worksheetsQuery->paginate(10);
 
 
@@ -87,25 +74,19 @@ class WorksheetController extends Controller
         $mechanics = User::where('role', 'mechanic')->get();
         return view('worksheet.create', ['mechanics' => $mechanics]);
     }
-    public function componentCreate($id)
+    public function componentCreate(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         $components = Component::get();
         return view('worksheet.components_add', compact('components', 'worksheet'));
     }
-    public function materialCreate($id)
+    public function materialCreate(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         $materials = Material::get();
         return view('worksheet.materials_add', compact('materials', 'worksheet'));
     }
 
-    public function work_processCreate($id)
+    public function work_processCreate(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         $work_processes = WorkProcess::get();
         return view('worksheet.work_processes_add', compact('work_processes', 'worksheet'));
     }
@@ -148,7 +129,7 @@ class WorksheetController extends Controller
         }
 
         $worksheet->components()->attach($request->component_id, ['quantity' => $validatedData['quantity']]);
-        return redirect()->route('worksheet.edit', $worksheet->id);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function materialStore(Request $request, $id)
     {
@@ -163,7 +144,7 @@ class WorksheetController extends Controller
         }
 
         $worksheet->materials()->attach($request->material_id, ['quantity' => $validatedData['quantity']]);
-        return redirect()->route('worksheet.edit', $worksheet->id);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function work_processStore(Request $request, $id)
     {
@@ -178,61 +159,51 @@ class WorksheetController extends Controller
         }
 
         $worksheet->workProcesses()->attach($request->work_process_id, ['duration' => $validatedData['duration']]);
-        return redirect()->route('worksheet.edit', $worksheet->id);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         return view('worksheet.show', compact('worksheet'));
     }
-    public function closedShow(string $id)
+    public function closedShow(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         return view('worksheet.closed_show', compact('worksheet'));
     }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
-
         $mechanics = User::where('role', 'mechanic')->get();
 
         $isMechanic = auth()->user()->role === 'mechanic';
 
         return view('worksheet.edit', compact('worksheet', 'mechanics', 'isMechanic'));
     }
-    public function closing(string $id)
+    public function closing(Worksheet $worksheet)
     {
-        $worksheet = Worksheet::findOrFail($id);
         return view('worksheet.closing', compact('worksheet'));
     }
 
-    public function componentsEdit(string $worksheetid, string $component_worksheetid)
+    public function componentsEdit(Worksheet $worksheet, string $component_worksheetid)
     {
-        $worksheet = Worksheet::findOrFail($worksheetid);
         $component = ComponentWorksheet::findOrFail($component_worksheetid);
         $component_name = $worksheet->getComponentName($component->component_id);
 
         return view('worksheet.components_edit', compact('worksheet', 'component', 'component_name'));
     }
-    public function materialsEdit(string $worksheetid, string $material_worksheetid)
+    public function materialsEdit(Worksheet $worksheet, string $material_worksheetid)
     {
-        $worksheet = Worksheet::findOrFail($worksheetid);
         $material = MaterialWorksheet::findOrFail($material_worksheetid);
         $material_name = $worksheet->getMaterialName($material->material_id);
 
         return view('worksheet.materials_edit', compact('worksheet', 'material', 'material_name'));
     }
-    public function work_processesEdit(string $worksheetid, string $work_process_worksheetid)
+    public function work_processesEdit(Worksheet $worksheet, string $work_process_worksheetid)
     {
-        $worksheet = Worksheet::findOrFail($worksheetid);
         $work_process = WorkProcessWorksheet::findOrFail($work_process_worksheetid);
         $work_process_name = $worksheet->getWorkProcessName($work_process->work_process_id);
 
@@ -289,6 +260,7 @@ class WorksheetController extends Controller
     }
     public function componentsUpdate(Request $request, string $worksheetid, string $component_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $component = ComponentWorksheet::findOrFail($component_worksheetid);
         $validatedData = $request->validate([
             'quantity' => 'required|numeric|min:1',
@@ -296,10 +268,11 @@ class WorksheetController extends Controller
         $component->update([
             'quantity' => $validatedData['quantity'],
         ]);
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function materialsUpdate(Request $request, string $worksheetid, string $material_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $material = MaterialWorksheet::findOrFail($material_worksheetid);
         $validatedData = $request->validate([
             'quantity' => 'required|numeric|min:1',
@@ -307,10 +280,11 @@ class WorksheetController extends Controller
         $material->update([
             'quantity' => $validatedData['quantity'],
         ]);
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function work_processesUpdate(Request $request, string $worksheetid, string $work_process_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $work_process = WorkProcessWorksheet::findOrFail($work_process_worksheetid);
         $validatedData = $request->validate([
             'duration' => 'required|numeric|min:1',
@@ -318,7 +292,7 @@ class WorksheetController extends Controller
         $work_process->update([
             'duration' => $validatedData['duration'],
         ]);
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     /**
      * Remove the specified resource from storage.
@@ -329,20 +303,23 @@ class WorksheetController extends Controller
     }
     public function componentDestroy(string $worksheetid, string $component_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $component = ComponentWorksheet::findOrFail($component_worksheetid);
         $component->delete();
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function materialDestroy(string $worksheetid, string $material_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $material = MaterialWorksheet::findOrFail($material_worksheetid);
         $material->delete();
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
     public function work_processDestroy(string $worksheetid, string $work_process_worksheetid)
     {
+        $worksheet = Worksheet::findOrFail($worksheetid);
         $work_process = WorkProcessWorksheet::findOrFail($work_process_worksheetid);
         $work_process->delete();
-        return redirect()->route('worksheet.edit', $worksheetid);
+        return redirect()->route('worksheet.edit', $worksheet);
     }
 }
